@@ -19,6 +19,11 @@ var addDevCmd = function addDevCmd(hub) {
   return hub.baseUrl + 'v1/add_device_to_session?SessionID=' + hub.SessionID + '&DeviceID=' + hub.DeviceID;
 };
 
+// GET request to remove a device from the session
+var remDevCmd = function remDevCmd(hub, remList) {
+  return hub.baseUrl + 'v1/remove_device_from_session?SessionID=' + hub.SessionID + '&DeviceID=' + remList;
+}
+
 // GET request to get the list of media associated with the session
 var mediaListCmd = function mediaListCmd(hub) {
   return hub.baseUrl + 'v1/media_list?SessionID=' + hub.SessionID;
@@ -41,7 +46,7 @@ var streamCmd = function streamCmd(hub, mediaUrl) {
 
 // GET request to set the volume (0 to 50)
 var setVolumeCmd = function setVolumeCmd(hub, vol) {
-  return hub.baseUrl + 'v1/set_volume?SessionID=' + hub.SessionID + '&Volume=' + vol;
+  return hub.baseUrl + 'v1/set_volume?SessionID=' + hub.SessionID + '&Volume=' + vol + '&DeviceID=' + hub.DeviceID;
 };
 
 module.exports = {
@@ -49,6 +54,7 @@ module.exports = {
   closeCmd:closeCmd,
   devListCmd:devListCmd,
   addDevCmd:addDevCmd,
+  remDevCmd:remDevCmd,
   mediaListCmd:mediaListCmd,
   playCmd:playCmd,
   stopCmd:stopCmd,

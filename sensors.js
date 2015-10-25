@@ -11,6 +11,19 @@ var humidityThresh = 37.2;   // Percentage
 var brightnessThresh = 0;    // 0: dark, 1: light
 var altThresh = 1000;        // Lat (degrees), Long (degrees), Alt (m)
 
+var minVolume = 24;
+
+//var tems = [];
+//var hums = [];
+//var bris = [];
+//
+//for (var i=0; i<10; i++) {
+//  tems.push(temperatureThresh);
+//  hums.push(humidityThresh);
+//  bris.push(brightnessThresh);
+//}
+
+
 // Test sets of sensor data
 var sensorTestData = [
   { // 0
@@ -48,24 +61,36 @@ var sensorTestData = [
 var testDataIdx = 0;
 var songOrder = [0,1,2,4];
 
+// Print sensors data
+var printSensorsData = function printSensorsData(sensorsData) {
+  console.log('Temp: ' + sensorsData.temperature + ", Hum: " + sensorsData.humidity + ", Brightness: " + sensorsData.brightness + ", Mood: " + sensorsData.mood);
+};
+
 // Get the sensors data
 var getSensorsData = function getSensorsData(liveDemo) {
   var deferred = Q.defer();
+  var sensData;
   if (liveDemo) {
     request(sensorsUrl, function(err,res,body) {
       if (!err && res.statusCode == 200) {
-        //console.log(JSON.parse(body));
         sensData = JSON.parse(body);
-        deferred.resolve({
+        // console.log(sensData);
+        if (sensData.mood == undefined) sensData.mood = {level:3};
+        S = {
           "temperature":Number(sensData.temperature.val),
-          "humidity":Number(sensData.humidity),
+          "humidity":Number(sensData.humidity.replace(/%/g,'')), // mystring.replace(/r/g, '')
           "brightness":(sensData.brightness == 'dark') ? 0 : 1,
-          "gps":[Number(sensData.gps.lat), Number(sensData.gps.lon), Number(sensData.gps.alt)]
-        });
+          "gps":[Number(sensData.gps.lat), Number(sensData.gps.lon), Number(sensData.gps.alt)],
+          "mood":sensData.mood.level || 0
+        };
+        printSensorsData(S);
+        deferred.resolve(S);
       } else deferred.reject(err);
     });
   } else {  // Debug data
-    deferred.resolve(sensorTestData[songOrder[testDataIdx]]);
+    sensData = sensorTestData[songOrder[testDataIdx]];
+    printSensorsData(sensData);
+    deferred.resolve(sensData);
     testDataIdx = (testDataIdx+1)%4;
   }
   return deferred.promise;
@@ -77,19 +102,22 @@ var getControlVars = function getControlVars(liveDemo) {
   var deferred = Q.defer();
 
   // Get the sensors data
-  getSensorsData().then(function(sensorData, liveDemo) {
+  getSensorsData(liveDemo).then(function(sensorData) {
 
     songBin = ["0", "0", "0", "0"];
     if (sensorData.temperature > temperatureThresh) songBin[0] = "1";
     if (sensorData.humidity > humidityThresh) songBin[1] = "1";
     if (sensorData.brightness > brightnessThresh) songBin[2] = "1";
     if (sensorData.gps[3] > altThresh) songBin[3] = "1";
+    var songIdxFromSensors = parseInt(songBin.reverse().join(''),2);
+
+    var songIdxFromMood = sensorData.mood;
 
     // Set volume based on something
-    var vol = 30; //Math.min([25, Math.floor(sensorData.temperature - 60)]);
+    vol = minVolume + Math.floor(sensorData.humidity/5);
 
     var controlVars = {
-      songIdx:parseInt(songBin.reverse().join(''),2),
+      songIdx:songIdxFromMood,
       vol:vol
     };
 
