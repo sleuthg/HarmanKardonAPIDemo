@@ -19,36 +19,41 @@ var sensorTestData = [
     "temperature":temperatureThresh,  // All at (but not above) threshold
     "humidity":humidityThresh,
     "brightness":brightnessThresh,
-    "gps":[28,160,altThresh]
+    "gps":[28,160,altThresh],
+    "mood":0
   },
   { // 1
     "temperature":temperatureThresh+1,  // Break temperature thresh
     "humidity":humidityThresh,
     "brightness":brightnessThresh,
-    "gps":[28,160,altThresh]
+    "gps":[28,160,altThresh],
+    "mood":1
   },
   { // 2
     "temperature":temperatureThresh,
     "humidity":humidityThresh+1,         // Break humidity thresh
     "brightness":brightnessThresh,
-    "gps":[28,160,altThresh]
+    "gps":[28,160,altThresh],
+    "mood":2
   },
   { // 3
     "temperature":temperatureThresh+1,  // Break temperature thresh
     "humidity":humidityThresh+1,         // Break humidity thresh
     "brightness":brightnessThresh,
-    "gps":[28,160,altThresh]
+    "gps":[28,160,altThresh],
+    "mood":2
   },
   { // 4
     "temperature":temperatureThresh,
     "humidity":humidityThresh,
     "brightness":brightnessThresh+1,      // Break brightness thresh
-    "gps":[28,160,altThresh]
+    "gps":[28,160,altThresh],
+    "mood":3
   }
 ];
 
 var testDataIdx = 0;
-var songOrder = [0,1,2,4];
+var songOrder = [0,1,2,3];
 
 // Print sensors data
 var printSensorsData = function printSensorsData(sensorsData) {

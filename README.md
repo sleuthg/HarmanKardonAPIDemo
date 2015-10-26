@@ -49,10 +49,27 @@ http://developer.harman.com/site/global/developer_tools/sample_apps/index.gsp
 Here's a link to the developer tools (check out the WebHub App Demo video first!):
 http://developer.harman.com/site/global/developer_tools/wirelesshd_sdk_overview/index.gsp
 
-## Demo
+## Demos
+You will need to tinker with a few parameters and setting to get these demos set up for your needs.  They are mostly
+just here to give you an idea of how to use the library.
+
+### Sensors Demo
 This demo was built to modify the song being played and adjust the volume dependent on sensor inputs posted to a 
 server.  You should be able to run it with `liveDemo=false`.  It demonstrates many of the things you would need to do
 to get up and running.
 ```
 node runDemo.js
+```
+
+### Volume Control Demo
+This demo was built when debugging how to use the volume control REST-ful API calls
+```
+node test_volume_control.js
+```
+
+## Troubleshooting tips
+If you run into problems, console.log the commands that the library is generating and try running them from a curl
+statement or from the browser. It helped me find typos and peculiarities of the interface. Here's an example:
+```
+console.log(hk.setVolumeCmd(hub,vol));
 ```
