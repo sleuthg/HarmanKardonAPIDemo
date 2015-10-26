@@ -1,12 +1,12 @@
 var hk = require('./index.js');
 var request = require('request');
 
-// Harman-Kardon Hub Variables
+// Harman/Kardon Hub Variables
 var hub = {
-  "SessionID":"1000",           // Default value
-  "DeviceID":"2586126661808",   // This is the value of the device ID at our Hackathon
-  "PersistentID":"7180490900718530992",
-  "baseUrl":'http://10.0.1.9:8080/'
+  "SessionID":"1000",                    // Default value of the SessionID
+  "DeviceID":"2586126661808",            // This is DeviceID of the device we used at our Hackathon
+  "PersistentID":"7180490900718530992",  // This was the PersistentID of the first song in our media list
+  "baseUrl":'http://10.0.1.9:8080/'      // This was the URL assigned when opening the Hub app on our iPhone
 };
 
 var vol = 10;

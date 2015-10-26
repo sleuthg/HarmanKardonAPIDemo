@@ -11,18 +11,7 @@ var humidityThresh = 37.2;   // Percentage
 var brightnessThresh = 0;    // 0: dark, 1: light
 var altThresh = 1000;        // Lat (degrees), Long (degrees), Alt (m)
 
-var minVolume = 24;
-
-//var tems = [];
-//var hums = [];
-//var bris = [];
-//
-//for (var i=0; i<10; i++) {
-//  tems.push(temperatureThresh);
-//  hums.push(humidityThresh);
-//  bris.push(brightnessThresh);
-//}
-
+var minVolume = 30;
 
 // Test sets of sensor data
 var sensorTestData = [
@@ -114,7 +103,7 @@ var getControlVars = function getControlVars(liveDemo) {
     var songIdxFromMood = sensorData.mood;
 
     // Set volume based on something
-    vol = minVolume + Math.floor(sensorData.humidity/5);
+    vol = minVolume + Math.floor(sensorData.humidity/10);
 
     var controlVars = {
       songIdx:songIdxFromMood,

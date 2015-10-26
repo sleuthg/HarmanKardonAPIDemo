@@ -1,5 +1,5 @@
 
-// This is the initialization command to initialize a session
+// GET request to initialize a session
 var initCmd = function initCmd(hub) {
   return hub.baseUrl + 'v1/init_session?Priority=1000';
 };
@@ -44,7 +44,7 @@ var streamCmd = function streamCmd(hub, mediaUrl) {
   return hub.baseUrl + 'v1/play_web_media?SessionID=' + hub.SessionID + '&MediaUrl=' + mediaUrl;
 };
 
-// GET request to set the volume (0 to 50)
+// GET request to set the volume (0 to 50)  25-30 should give you a reasonable volume
 var setVolumeCmd = function setVolumeCmd(hub, vol) {
   return hub.baseUrl + 'v1/set_volume?SessionID=' + hub.SessionID + '&Volume=' + vol + '&DeviceID=' + hub.DeviceID;
 };

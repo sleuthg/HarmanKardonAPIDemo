@@ -1,13 +1,32 @@
 {
-  "name": "harman-kardon-test",
-  "version": "1.0.0",
-  "description": "API to work with Harman-Kardon Web Hub App",
+  "name": "harman-kardon-hubapp-api",
+  "version": "0.0.1",
+  "description": "API and demo to work with Harman-Kardon Web Hub App",
   "main": "index.js",
   "scripts": {
+    "start": "node runDemo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name":"Trevor Gile",
+    "email":"trevor@learningthreads.co"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sleuthg/HarmanKardonAPIDemo/issues"
+  },
+  "repository": {
+    "type":"git",
+    "url":"https://github.com/sleuthg/HarmanKardonAPIDemo"
+  },
+  "keywords": [
+    "harman",
+    "kardon",
+    "harman/kardon",
+    "hub",
+    "api",
+    "demo"
+  ],
   "dependencies": {
     "q": "^1.4.1",
     "request": "^2.65.0"
